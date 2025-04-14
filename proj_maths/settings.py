@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 dotenv_path = os.path.join(BASE_DIR, ".env")
-load_dotenv() 
+load_dotenv()
 
 # AUTH_USER_MODEL = 'proj_maths.CustomUser'
 
@@ -34,8 +34,8 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # pip install social-auth-app-django
-SOCIAL_AUTH_GITHUB_KEY = 'ВАШ_CLIENT_ID'  # ВАШ_CLIENT_ID Из GitHub Developer Settings
-SOCIAL_AUTH_GITHUB_SECRET = 'SOCIAL_AUTH_GITHUB_SECRET'  # Из GitHub Developer Settings
+SOCIAL_AUTH_GITHUB_KEY = ''  # ВАШ_CLIENT_ID Из GitHub Developer Settings
+SOCIAL_AUTH_GITHUB_SECRET = ''  # Из GitHub Developer Settings
 # SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']  # Запрашиваем email
 SOCIAL_AUTH_GITHUB_REDIRECT_URI = 'http://localhost:8000/complete/github/'
 # SOCIAL_AUTH_GITHUB_REDIRECT_URI = 'http://127.0.0.1:8000/oauth/complete/github/'
@@ -43,8 +43,8 @@ SOCIAL_AUTH_GITHUB_REDIRECT_URI = 'http://localhost:8000/complete/github/'
 
 # SOCIAL_AUTH_REDIRECT_IS_HTTPS = True  # Для HTTPS
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'ВАШ_CLIENT_ID'  # 'ВАШ_CLIENT_ID' Из Google Cloud Console
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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CRET'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''  # 'ВАШ_CLIENT_ID' Из Google Cloud Console
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
 # SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']  # Запрашиваем email
 SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'http://localhost:8000/oauth/complete/google-oauth2/'
 SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT = 'http://localhost:8000/oauth/complete/google-oauth2/'
