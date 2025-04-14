@@ -25,8 +25,8 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home' # Редирект после успешного входа
 LOGOUT_REDIRECT_URL = 'home'
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-CSRF_COOKIE_SAMESITE = 'None'
-CSRF_COOKIE_SECURE = True
+# CSRF_COOKIE_SAMESITE = 'None'
+# CSRF_COOKIE_SECURE = True
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',  # стандартный backend
     'social_core.backends.github.GithubOAuth2',
@@ -34,17 +34,17 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # pip install social-auth-app-django
-SOCIAL_AUTH_GITHUB_KEY = ''  # ВАШ_CLIENT_ID Из GitHub Developer Settings
-SOCIAL_AUTH_GITHUB_SECRET = ''  # Из GitHub Developer Settings
+SOCIAL_AUTH_GITHUB_KEY = str(os.getenv("SOCIAL_AUTH_GITHUB_KEY"))  # ВАШ_CLIENT_ID Из GitHub Developer Settings
+SOCIAL_AUTH_GITHUB_SECRET = str(os.getenv("SOCIAL_AUTH_GITHUB_SECRET"))  # Из GitHub Developer Settings
 # SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']  # Запрашиваем email
-SOCIAL_AUTH_GITHUB_REDIRECT_URI = 'http://localhost:8000/complete/github/'
-# SOCIAL_AUTH_GITHUB_REDIRECT_URI = 'http://127.0.0.1:8000/oauth/complete/github/'
+# SOCIAL_AUTH_GITHUB_REDIRECT_URI = 'http://localhost:8000/complete/github/'
+SOCIAL_AUTH_GITHUB_REDIRECT_URI = 'http://127.0.0.1:8000/oauth/complete/github/'
 
 
 # SOCIAL_AUTH_REDIRECT_IS_HTTPS = True  # Для HTTPS
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''  # 'ВАШ_CLIENT_ID' Из Google Cloud Console
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = str(os.getenv("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY"))  # 'ВАШ_CLIENT_ID' Из Google Cloud Console
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = str(os.getenv("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET"))
 # SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']  # Запрашиваем email
 SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'http://localhost:8000/oauth/complete/google-oauth2/'
 SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT = 'http://localhost:8000/oauth/complete/google-oauth2/'

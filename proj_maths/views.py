@@ -5,30 +5,30 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 
-# from proj_maths.forms import SignUpForm
+from proj_maths.forms import SignUpForm
 from . import terms_work
-
-def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            return redirect('home')
-    else:
-        form = UserCreationForm()
-    return render(request, 'registration/signup.html', {'form': form})
 
 # def signup(request):
 #     if request.method == 'POST':
-#         form = SignUpForm(request.POST)
+#         form = UserCreationForm(request.POST)
 #         if form.is_valid():
 #             user = form.save()
-#             login(request, user)
+#             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 #             return redirect('home')
 #     else:
-#         form = SignUpForm()
+#         form = UserCreationForm()
 #     return render(request, 'registration/signup.html', {'form': form})
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = SignUpForm()
+    return render(request, 'registration/signup.html', {'form': form})
 
 
 
