@@ -6,6 +6,7 @@
     <!-- load static -->
     {% load static %}
     <!-- CSS -->
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
 </head>
 <body>
@@ -17,6 +18,21 @@
                     <img src="{% static 'calculator.svg' %}" alt="Проект про математику" width="32" height="32"/>
                     <span>Проект про математику</span>
                 </div>
+                {% if user.is_authenticated %}
+                  <p>Вы вошли как {{ user.username }} (через {{ user.social_auth.first.provider }})</p>
+{#                    <img src="{{ user.socialaccount_set.first.extra_data.avatar_url }}" alt="GitHub Avatar">#}
+                    <form action="{% url 'logout' %}" method="post">
+                      {% csrf_token %}
+                      <button type="submit">Выйти</button>
+                    </form>
+{#                    <a href="{% url 'logout' %}">Выйти</a>#}
+                {% else %}
+                  <p>Вы не авторизованы</p>
+                    <form action="{% url 'login' %}" method="get">
+                      <button type="submit">Войти</button>
+                    </form>
+{#                    <a href="{% url 'login' %}">Войти</a>#}
+                {% endif %}
             </a>
         </header>
         <div class="p-5 mb-4 bg-light rounded-3" id="title-box">

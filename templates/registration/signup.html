@@ -1,0 +1,18 @@
+{% extends "base_page.html" %}
+
+{% block page-title %}
+Регистрация
+{% endblock %}
+
+{% block page-lead %}
+Это страничка проекта для регистрации пользователя.
+{% endblock %}
+
+{% block content %}
+<h2>Регистрация</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Зарегистрироваться</button>
+</form>
+{% endblock %}

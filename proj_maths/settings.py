@@ -19,6 +19,56 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 dotenv_path = os.path.join(BASE_DIR, ".env")
 load_dotenv() 
 
+# AUTH_USER_MODEL = 'proj_maths.CustomUser'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home' # Редирект после успешного входа
+LOGOUT_REDIRECT_URL = 'home'
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # стандартный backend
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+]
+
+# pip install social-auth-app-django
+SOCIAL_AUTH_GITHUB_KEY = 'ВАШ_CLIENT_ID'  # ВАШ_CLIENT_ID Из GitHub Developer Settings
+SOCIAL_AUTH_GITHUB_SECRET = 'SOCIAL_AUTH_GITHUB_SECRET'  # Из GitHub Developer Settings
+# SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']  # Запрашиваем email
+SOCIAL_AUTH_GITHUB_REDIRECT_URI = 'http://localhost:8000/complete/github/'
+# SOCIAL_AUTH_GITHUB_REDIRECT_URI = 'http://127.0.0.1:8000/oauth/complete/github/'
+
+
+# SOCIAL_AUTH_REDIRECT_IS_HTTPS = True  # Для HTTPS
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'ВАШ_CLIENT_ID'  # 'ВАШ_CLIENT_ID' Из Google Cloud Console
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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CRET'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']  # Запрашиваем email
+SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'http://localhost:8000/oauth/complete/google-oauth2/'
+SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT = 'http://localhost:8000/oauth/complete/google-oauth2/'
+SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {
+    'redirect_uri': 'http://localhost:8000/oauth/complete/google-oauth2/'
+}
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_STATE = True  # По умолчанию True, но можно проверить
+SOCIAL_AUTH_FIELDS_STORED_IN_SESSION = ['state']  # Важно!
+
+# Для сохранения данных пользователя
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    # 'proj_maths.pipeline.save_avatar',  # Кастомный pipeline
+)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -41,16 +91,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
+    'proj_maths'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'proj_maths.urls'
@@ -68,6 +121,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
